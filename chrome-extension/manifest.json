@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Bing Text Extractor",
+  "version": "1.0",
+  "permissions": ["scripting", "clipboardWrite", "activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.bing.com/images/search*"],
+      "js": ["content.js"]
+    }
+  ],
+  "host_permissions": ["http://localhost:5000/"]
+}

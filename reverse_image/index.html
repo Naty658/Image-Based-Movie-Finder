@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reverse Image Search</title>
+</head>
+<body>
+  <h1>Reverse Image Search</h1>
+  <form id="uploadForm">
+    <input type="file" id="imageInput" />
+    <button type="submit">Upload</button>
+  </form>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const file = document.getElementById("imageInput").files[0];
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch("http://127.0.0.1:5000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const imageUrl = await res.text();
+      console.log("Uploaded image URL:", imageUrl); // 👈 Debug output
+
+      const bingUrl = "https://www.bing.com/images/search?view=detailv2&iss=sbi&form=SBIVSP&sbisrc=UrlPaste&imgurl=" + encodeURIComponent(imageUrl);
+      window.location.href = bingUrl;
+    });
+  </script>
+</body>
+</html>
